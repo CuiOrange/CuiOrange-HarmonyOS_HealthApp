@@ -33,26 +33,7 @@ export function getDayAchievementLevel() {
   })
 }
 
-// // 获取单项成就
-// export function getSingleAchievementLevel() {
-//   const now=new Date();
-//   TaskInfoApi.query(now.toString(),true,(res:TaskInfo)=>{
-//     let taskInfo: TaskInfo = res;
-//     let fin=Number(taskInfo.finValue);
-//     let tar=Number(taskInfo.targetValue);
-//     let rate=fin/tar;
-//     if(rate>=1&&rate<2){
-//       // 100%达成
-//       AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 1);
-//     }else if(rate>=2&&rate<4){
-//       // 200%达成
-//       AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 2);
-//     }else if(rate>=4&&rate<5){
-//       // 400%达成
-//       AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 4);
-//     }
-//   })
-// }
+
 
 
 // 天数成就
