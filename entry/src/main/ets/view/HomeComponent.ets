@@ -67,11 +67,24 @@ export default struct HomeIndex {
     if (!this.homeStore.checkCurrentDay()) {
       return;
     }
+
+    // 判断点击还是长按
     if (isClick) {
       // click to clock
       let callback: CustomDialogCallback = {
         confirmCallback: (taskTemp: TaskInfo) => {
           this.onConfirm(taskTemp)
+          let rate=Number(item.finValue)/Number(item.targetValue);
+          if(rate>=1&&rate<2){
+            // 100%达成
+            AppStorage.set<Number>('SingleAchievementLevelKey', 1);
+          }else if(rate>=2&&rate<4){
+            // 200%达成
+            AppStorage.set<Number>('SingleAchievementLevelKey', 2);
+          }else if(rate>=4&&rate<5){
+            // 400%达成
+            AppStorage.set<Number>('SingleAchievementLevelKey', 4);
+          }
         }, cancelCallback: () => {
         }
       };
@@ -92,6 +105,9 @@ export default struct HomeIndex {
   //confirm clockL
   onConfirm(task: TaskInfo) {
     this.homeStore.taskClock(task).then((res: AchievementInfo) => {
+      let fin=Number(task.finValue);
+      let tar=Number(task.targetValue);
+      this.broadCast.emit(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, (fin/tar)+1);
       if (res.showAchievement) {
         let achievementLevel = res.achievementLevel;
         if (achievementLevel) {

@@ -14,7 +14,7 @@
  */
 
 import { BadgeCard } from './BadgeCardComponent'
-import { getDayAchievementLevel, getSingleAchievementLevel, SINGLE_ACHIEVEMENT_LEVEL_KEY } from '../model/AchieveModel'
+import { getDayAchievementLevel, /*getSingleAchievementLevel,*/ SINGLE_ACHIEVEMENT_LEVEL_KEY } from '../model/AchieveModel'
 import { getBadgeCardItems,getSingleBadgeCardItems } from '../viewmodel/AchievementViewModel'
 import Logger from '../common/utils/Logger'
 import { ACHIEVEMENT_LEVEL_KEY } from '../model/AchieveModel'
@@ -30,9 +30,8 @@ export struct BadgePanel {
   aboutToAppear() {
     Logger.debug('BadgePanel', 'aboutToAppear');
     getDayAchievementLevel();
-    getSingleAchievementLevel();
+    // getSingleAchievementLevel();
   }
-
   build() {
     Flex({ direction: FlexDirection.Row, wrap: FlexWrap.Wrap }) {
       ForEach(getBadgeCardItems(this.successiveDays), (item: CardInfo) => {

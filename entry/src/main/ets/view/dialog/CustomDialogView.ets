@@ -14,6 +14,7 @@
  */
 
 import { AchievementDialog } from './AchievementDialog';
+import { SingleAchievementDialog } from './SingleAchievementDialog';
 import { TaskDetailDialog } from './TaskDetailDialog';
 import { BroadCast, BroadCastType } from '../../common/utils/BroadCast';
 import { TaskItem } from '../../model/TaskInitList';
@@ -40,6 +41,12 @@ export struct CustomDialogView {
     autoCancel: true,
     customStyle: true
   });
+  // 单一成就弹窗
+  singleAchievementDialog: CustomDialogController = new CustomDialogController({
+    builder: SingleAchievementDialog(),
+    autoCancel: true,
+    customStyle: true
+  });
   // task clock dialog
   taskDialog: CustomDialogController = new CustomDialogController({
     builder: TaskDetailDialog(),
@@ -55,7 +62,12 @@ export struct CustomDialogView {
       this.achievementLevel = achievementLevel;
       this.achievementDialog.open();
     });
-
+    // 单一成就弹窗
+    this.broadCast.on(BroadCastType.SHOW_ACHIEVEMENT_DIALOG, (singleAchievement: number) => {
+      Logger.debug('CustomDialogView', 'SHOW_ACHIEVEMENT_DIALOG');
+      this.achievementLevel = singleAchievement;
+      this.singleAchievementDialog.open();
+    });
     // task clock dialog
     this.broadCast.on(BroadCastType.SHOW_TASK_DETAIL_DIALOG,
       (currentTask: TaskInfo, dialogCallBack: CustomDialogCallback) => {

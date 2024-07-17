@@ -34,33 +34,25 @@ export function getDayAchievementLevel() {
 }
 
 // // 获取单项成就
-export function getSingleAchievementLevel() {
-  const now=new Date();
-  TaskInfoApi.query(now.toLocaleString(),true,(res:TaskInfo)=>{
-    let taskInfo: TaskInfo = res;
-    let fin=Number(taskInfo.finValue);
-    let tar=Number(taskInfo.targetValue);
-    let rate=fin/tar;
-    if(rate>=1&&rate<2){
-      // 100%达成
-      AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 1);
-    }else if(rate>=2&&rate<4){
-      // 200%达成
-      AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 2);
-    }else if(rate>=4&&rate<5){
-      // 400%达成
-      AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 4);
-    }
-  })
-}
-//   GlobalInfoApi.query((res: GlobalInfo) => {
-//     let globalInfo: GlobalInfo = res;
-//     let achievementStr = globalInfo.achievements ?? '';
-//     let achievements = achievementStr.split(',');
-//     if (achievements.length > 0) {
-//       AppStorage.set<Number>(ACHIEVEMENT_LEVEL_KEY, Number(achievements[achievements.length - 1]));
+// export function getSingleAchievementLevel() {
+//   const now=new Date();
+//   TaskInfoApi.query(now.toString(),true,(res:TaskInfo)=>{
+//     let taskInfo: TaskInfo = res;
+//     let fin=Number(taskInfo.finValue);
+//     let tar=Number(taskInfo.targetValue);
+//     let rate=fin/tar;
+//     if(rate>=1&&rate<2){
+//       // 100%达成
+//       AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 1);
+//     }else if(rate>=2&&rate<4){
+//       // 200%达成
+//       AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 2);
+//     }else if(rate>=4&&rate<5){
+//       // 400%达成
+//       AppStorage.set<Number>(SINGLE_ACHIEVEMENT_LEVEL_KEY, 4);
 //     }
 //   })
+// }
 
 
 // 天数成就
@@ -73,15 +65,3 @@ export function isReachNewDayAchievement(globalInfo: GlobalInfo): boolean {
   }
   return false;
 }
-
-// // 单项成就
-// export function isReachNewSingleAchievement(taskInfo: TaskInfo): boolean {
-//   let target=taskInfo.targetValue??'';
-//   let finish=taskInfo.finValue??'';
-//   // let achievementStr = globalInfo.achievements ?? '';
-//   // let achievements = achievementStr.split(',');
-//   if (ACHIEVEMENT_LEVEL_LIST.indexOf(globalInfo.checkInDays) >= 0 && achievements.indexOf(String(globalInfo.checkInDays)) < 0) {
-//     return true;
-//   }
-//   return false;
-// }

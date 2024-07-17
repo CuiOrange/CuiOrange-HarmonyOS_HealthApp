@@ -57,7 +57,8 @@ export class HomeStore {
         let tempList = res.concat(dayInfo);
         Logger.info('initDayInfoList: ', JSON.stringify(res));
         for (let i = 0; i < this.dateArr.length; i++) {
-          let tempDayInfo = tempList.find((item: DayInfo) => item.date === this.dateArr[i].dateStr) || new DayInfo(this.dateArr[i].dateStr, 0, 0);
+          let tempDayInfo = tempList.find((item: DayInfo) => item.date === this.dateArr[i].dateStr) ||
+            new DayInfo(this.dateArr[i].dateStr, 0, 0);
           weekCalendarInfo.arr[i].dayInfo = tempDayInfo;
           if (this.dateArr[i].dateStr === dateToStr(new Date(this.showDate))) {
             // get tasks of showDate
@@ -257,8 +258,9 @@ export class HomeStore {
         updateTask.finValue = finValue;
       } else {
         let value = Number(finValue) + step;
-        updateTask.isDone = updateTask.isDone || value >= Number(targetValue);
-        updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        // updateTask.isDone = updateTask.isDone || value >= Number(targetValue);
+        // updateTask.finValue = updateTask.isDone ? targetValue : `${value}`;
+        updateTask.finValue = `${value}`;
       }
       TaskInfoTableApi.updateDataByDate(updateTask, (res: number) => {
         if (!res || hasExceed) {
