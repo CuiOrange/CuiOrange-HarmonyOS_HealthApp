@@ -14,20 +14,32 @@
  */
 
 import { MineInfoList, InfoItem } from '../model/Mine';
-
+import { router } from '@kit.ArkUI';
 @Component
+
 export struct ListInfo {
+
+
+
   build() {
     List() {
       ForEach(MineInfoList, (item: InfoItem) => {
         ListItem() {
           Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
             Text(item.title).fontSize($r('app.float.default_16')).height($r('app.float.default_40'))
+            Button({type: ButtonType.Circle}) {
+              Image($r('app.media.ic_right_grey'))
+                .height($r('app.float.default_12'))
+                .width($r('app.float.default_7'))
+            }
+            .backgroundColor(Color.White)
+            .onClick(() => {
+              router.pushUrl({          // 使用push入栈一个新页面
+                url: 'pages/Personal'  // 通过url指定新打开的页面
+              })
+            })
 
-            Image($r('app.media.ic_right_grey'))
-              .objectFit(ImageFit.Contain)
-              .height($r('app.float.default_12'))
-              .width($r('app.float.default_7'))
+
           }
         }
         .backgroundColor($r('app.color.white'))
@@ -40,9 +52,9 @@ export struct ListInfo {
           width: { bottom: $r('app.float.default_1') },
           color: $r('app.color.borderColor')
         })
-
       }, (item: InfoItem) => JSON.stringify(item));
     }
+
     .border({
       radius: {
         topLeft: $r('app.float.default_24'),
